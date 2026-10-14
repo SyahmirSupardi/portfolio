@@ -12,8 +12,10 @@ function App() {
       <Nav />
       <main id="main-content">
         <Header />
-        <Experience />
-        <Portfolio />
+        <div className="showcase-layout">
+          <Portfolio />
+          <Experience />
+        </div>
         <Contact />
       </main>
       <Footer />
