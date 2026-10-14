@@ -11,8 +11,8 @@ const Nav = () => {
 
         <div className="nav-links">
           <a href="#about">About</a>
-          <a href="#toolkit">Skills</a>
           <a href="#portfolio">Projects</a>
+          <a href="#toolkit">Skills</a>
         </div>
 
         <a className="nav-contact" href="#contact">
