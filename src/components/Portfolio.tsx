@@ -63,7 +63,7 @@ const Portfolio = () => {
   return (
     <section id="portfolio" className="section-wrap work-section" aria-labelledby="work-title">
       <div className="section-label-row">
-        <span>03 / PROJECT ARCHIVE</span>
+        <span>02 / PROJECT ARCHIVE</span>
         <span>SELECTED WORK SAMPLES</span>
       </div>
 
