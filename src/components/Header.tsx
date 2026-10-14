@@ -1,77 +1,66 @@
-// src/components/Header.tsx
-import { useState } from 'react'
-import FadeIn from './FadeIn'
-import ProfileCard from './ProfileCard'
-import CVModal from './CVModal' // <--- Import the modal
+import { FiArrowDownRight, FiArrowUpRight, FiGithub, FiMail } from 'react-icons/fi'
 
 const Header = () => {
-  // 1. Add state to control the modal visibility
-  const [isCVModalOpen, setIsCVModalOpen] = useState(false)
-
   return (
-    <header className="min-h-screen flex flex-col justify-center items-center text-center px-4 relative overflow-hidden pt-12 pb-24">
-        
-        {/* 2. Render the Modal Component here */}
-        <CVModal 
-            isOpen={isCVModalOpen} 
-            onClose={() => setIsCVModalOpen(false)} 
-        />
+    <section id="about" className="hero section-wrap" aria-labelledby="hero-title">
+      <div className="poster-heading">
+        <p className="poster-kicker"><span>PERSONAL FILE</span><span>NO. 01 — DATA &amp; INSIGHT</span></p>
+        <h1 id="hero-title">DATA <span>PORTFOLIO</span></h1>
+        <p className="poster-subtitle">ANALYSIS · REPORTING · BUSINESS INTELLIGENCE</p>
+      </div>
 
-        {/* --- PROFILE CARD (Above Name) --- */}
-        <FadeIn delay={0.1} direction="down">
-            <div className="mb-8 scale-75 md:scale-90 origin-bottom transform-gpu">
-                <ProfileCard
-                  name="Syahmir Supardi"
-                  title="Junior Data Analyst"
-                  handle="syahmir.my"
-                  status="Open to Work"
-                  contactText="Hire Me"
-                  // Using a placeholder - REPLACE with your actual transparent PNG photo for best effect!
-                  avatarUrl="/projects/portrait-image.png" 
-                  showUserInfo={false} 
-                  enableTilt={true}
-                  behindGlowColor="rgba(78, 100, 136, 0.6)" 
-                  // Update this to scroll to contact section
-                  onContactClick={() => window.location.href = '#contact'}
-                />
+      <div className="hero-board">
+        <aside className="portfolio-ticket" aria-label="SQL, dashboards, and business analysis">
+          <span className="ticket-serial">NO. 01 / DATA</span>
+          <span className="ticket-main">DATA / ANALYSIS / REPORTING</span>
+          <span className="ticket-barcode" aria-hidden="true" />
+          <span className="ticket-footer">FIELD NOTES · 01</span>
+        </aside>
+
+        <div className="identity-card">
+          <span className="paper-tape tape-top" aria-hidden="true" />
+          <figure className="portrait-frame">
+            <img
+              src="/projects/syahmir-portrait.webp"
+              alt="Syahmir Supardi"
+              width="1052"
+              height="1500"
+              fetchPriority="high"
+            />
+            <figcaption>PORTRAIT / 01</figcaption>
+          </figure>
+
+          <div className="identity-details">
+            <div className="identity-topline">
+              <span className="identity-label">PERSONAL DATA</span>
+              <span className="open-stamp"><i /> OPEN TO WORK</span>
             </div>
-        </FadeIn>
+            <h2>Syahmir<br />Supardi</h2>
+            <p className="identity-role">JUNIOR DATA ANALYST<br />ASPIRING BUSINESS ANALYST</p>
+            <p className="identity-intro">
+              I turn raw data into clear analysis, useful dashboards, and better questions for the people making decisions.
+            </p>
 
-        {/* --- TEXT CONTENT (Below Card) --- */}
-        <div className="relative z-10">
-            <FadeIn delay={0.2} direction="down">
-                <h5 className="text-sm font-medium text-slate-300">Hello, I am</h5>
-            </FadeIn>
+            <div className="identity-facts">
+              <div><span>FOCUS</span><strong>Data analysis<br />Business intelligence</strong></div>
+              <div><span>TOOLS</span><strong>SQL · Excel<br />Power BI · Python</strong></div>
+            </div>
 
-            <FadeIn delay={0.4} direction="up">
-                <h1 className="text-5xl md:text-7xl font-bold mt-2 mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 tracking-wide">
-                    Syahmir Supardi
-                </h1>
-            </FadeIn>
+            <div className="identity-links">
+              <a href="mailto:syahmirsupardi@gmail.com">EMAIL <FiArrowUpRight aria-hidden="true" /></a>
+              <a href="https://github.com/SyahmirSupardi" target="_blank" rel="noreferrer">GITHUB <FiGithub aria-hidden="true" /></a>
+              <a href="mailto:syahmirsupardi@gmail.com?subject=CV%20request">REQUEST CV <FiMail aria-hidden="true" /></a>
+            </div>
+            <span className="identity-barcode" aria-hidden="true" />
+          </div>
 
-            <FadeIn delay={0.6}>
-                <h5 className="text-slate-400 text-lg tracking-widest mb-8">
-                    Junior Data Analyst | Aspiring Business Analyst
-                </h5>
-            </FadeIn>
-
-            <FadeIn delay={0.8}>
-                <div className="flex gap-4 justify-center">
-                    {/* 3. Update the Download CV button to open the modal */}
-                    <button 
-                        onClick={() => setIsCVModalOpen(true)}
-                        className="px-6 py-3 border border-blue-400 text-blue-400 rounded hover:bg-blue-400 hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:shadow-[0_0_25px_rgba(59,130,246,0.8)] bg-slate-900/50 backdrop-blur-md"
-                    >
-                        Download CV
-                    </button>
-                    
-                    <a href="#contact" className="px-6 py-3 bg-blue-500 text-slate-900 font-medium rounded hover:bg-blue-600 transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:shadow-[0_0_25px_rgba(59,130,246,0.8)]">
-                        Let's Talk
-                    </a>
-                </div>
-            </FadeIn>
+          <span className="paper-tape tape-side" aria-hidden="true" />
+          <span className="hero-stamp" aria-hidden="true">DATA<br />WITH<br />INTENT</span>
         </div>
-    </header>
+      </div>
+
+      <a className="scroll-note" href="#toolkit"><FiArrowDownRight aria-hidden="true" /> SCROLL TO EXPLORE</a>
+    </section>
   )
 }
 
