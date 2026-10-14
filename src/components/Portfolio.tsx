@@ -1,68 +1,115 @@
-import FadeIn from './FadeIn'
-// ✅ FIX: Added "type" keyword so the browser knows not to look for this at runtime
-import MotionCarousel, { type ProjectSlide } from './MotionCarousel'
+import { FiArrowUpRight, FiDownload, FiGithub } from 'react-icons/fi'
 
-const projects: ProjectSlide[] = [
+type Project = {
+  number: string
+  title: string
+  category: string
+  description: string
+  image: string
+  alt: string
+  tools: string[]
+  href: string
+  action: 'Download project' | 'View on GitHub'
+}
+
+const projects: Project[] = [
   {
-    id: 1,
-    title: 'Covid SQL Analysis',
-    description: 'Analyzed Covid real-time data. Download the SQL queries below.',
+    number: '01',
+    title: 'COVID-19 SQL analysis',
+    category: 'Data analysis',
+    description: 'A SQL exploration of COVID-19 data, with the queries available to download.',
     image: '/projects/covid-19.jpg',
-    tech: ['SQL'],
-    // Link to the file in your public/downloads folder
-    download: '/downloads/Covid SQL Project.sql' 
+    alt: 'COVID-19 project cover image',
+    tools: ['SQL', 'PostgreSQL'],
+    href: '/downloads/Covid SQL Project.sql',
+    action: 'Download project',
   },
   {
-    id: 2,
-    title: 'Excel Report',
-    description: 'Automated bikes reporting dashboard.',
+    number: '02',
+    title: 'Bike sales report',
+    category: 'Reporting',
+    description: 'An Excel reporting project with an automated bike sales dashboard.',
     image: '/projects/2022-09-29-image-2.png',
-    tech: ['Excel', 'VBA'],
-    // Link to an Excel file
-    download: '/downloads/Excel Full Project.xlsx'
+    alt: 'Excel project cover image',
+    tools: ['Excel', 'VBA'],
+    href: '/downloads/Excel Full Project.xlsx',
+    action: 'Download project',
   },
   {
-    id: 3,
-    title: 'Collection Github Project',
-    description: 'Standard web project with GitHub link.',
-    image: '/projects/1703525023946.jpg',
-    tech: ['Python', 'Pandas'],
-    github: 'https://github.com/SyahmirSupardi/Syhm_Portfolio_Project.git'
-    // No download link here, so the button won't appear
-  },
-  {
-    id: 4,
-    title: 'Coming Soon',
-    description: 'Coming Soon...',
-    image: 'https://placehold.co/600x400/1e293b/white?text=Task+App',
-    tech: ['React.js', 'TypeScript'],
-    github: '',
-    demo: ''
-  },
-  {
-    id: 5,
-    title: 'Power BI Dashboard',
-    description: 'Interactive dashboard for business analytics.',
+    number: '03',
+    title: 'Power BI dashboard',
+    category: 'Business intelligence',
+    description: 'An interactive business analytics dashboard built in Power BI.',
     image: '/projects/461.png',
-    tech: ['Power BI', 'DAX'],
-    download: '/downloads/Power BI Project.pbix' 
-  }
+    alt: 'Power BI dashboard project cover image',
+    tools: ['Power BI', 'DAX'],
+    href: '/downloads/Power BI Portfolio.pbix',
+    action: 'Download project',
+  },
+  {
+    number: '04',
+    title: 'Project collection',
+    category: 'Code & analysis',
+    description: 'A collection of project work and experiments hosted on GitHub.',
+    image: '/projects/1703525023946.jpg',
+    alt: 'GitHub project cover image',
+    tools: ['Python', 'Pandas'],
+    href: 'https://github.com/SyahmirSupardi/Syhm_Portfolio_Project',
+    action: 'View on GitHub',
+  },
 ]
 
 const Portfolio = () => {
   return (
-    <section id="portfolio" className="pt-20 pb-20 overflow-hidden">
-      <FadeIn delay={0.2} direction="down">
-        <div className="text-center mb-16">
-            <h5 className="text-slate-400 text-sm">My Recent Work</h5>
-            <h2 className="text-3xl font-bold text-blue-500">Portfolio</h2>
-        </div>
-      </FadeIn>
+    <section id="portfolio" className="section-wrap work-section" aria-labelledby="work-title">
+      <div className="section-label-row">
+        <span>02 / PROJECT ARCHIVE</span>
+        <span>SELECTED WORK SAMPLES</span>
+      </div>
 
-      <FadeIn delay={0.4} direction="up" fullWidth={true} padding={false}>
-          {/* Using the new Carousel Component */}
-          <MotionCarousel slides={projects} />
-      </FadeIn>
+      <div className="work-heading">
+        <h2 id="work-title">Work <span>samples</span></h2>
+        <p>Analysis, reports, and dashboards built to make information easier to use.</p>
+      </div>
+
+      <div className="project-grid">
+        {projects.map((project) => (
+          <article className="project-card" key={project.number}>
+            <span className="paper-tape project-tape" aria-hidden="true" />
+            <a
+              className="project-image-link"
+              href={project.href}
+              download={project.action === 'Download project' ? true : undefined}
+              target={project.action === 'View on GitHub' ? '_blank' : undefined}
+              rel={project.action === 'View on GitHub' ? 'noreferrer' : undefined}
+              aria-label={`${project.action}: ${project.title}`}
+            >
+              <img src={project.image} alt={project.alt} loading="lazy" decoding="async" />
+              <span className="project-number">{project.number}</span>
+              <span className="project-image-arrow" aria-hidden="true"><FiArrowUpRight /></span>
+            </a>
+            <div className="project-content">
+              <div className="project-meta">
+                <span>{project.category}</span>
+                <span>{project.tools.join(' · ')}</span>
+              </div>
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+              <a
+                className="project-action"
+                href={project.href}
+                download={project.action === 'Download project' ? true : undefined}
+                target={project.action === 'View on GitHub' ? '_blank' : undefined}
+                rel={project.action === 'View on GitHub' ? 'noreferrer' : undefined}
+              >
+                {project.action === 'Download project' ? <FiDownload aria-hidden="true" /> : <FiGithub aria-hidden="true" />}
+                {project.action}
+                <FiArrowUpRight aria-hidden="true" />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
     </section>
   )
 }
