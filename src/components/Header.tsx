@@ -36,15 +36,17 @@ const Header = () => {
               <span className="open-stamp"><i /> OPEN TO WORK</span>
             </div>
             <h2>Syahmir<br />Supardi</h2>
-            <p className="identity-role">JUNIOR DATA ANALYST<br />ASPIRING BUSINESS ANALYST</p>
-            <p className="identity-intro">
-              I turn raw data into clear analysis, useful dashboards, and better questions for the people making decisions.
+            <p className="identity-role">
+              <span>JUNIOR DATA ANALYST</span>
+              <span>DATA MANAGEMENT</span>
+              <span>NARRATIVE DESIGNER</span>
             </p>
-
-            <div className="identity-facts">
-              <div><span>FOCUS</span><strong>Data analysis<br />Business intelligence</strong></div>
-              <div><span>TOOLS</span><strong>SQL · Excel<br />Power BI · Python</strong></div>
-            </div>
+            <p className="identity-intro">
+              I’m currently pursuing a Bachelor of Computer Science (Hons.), with a focus on game design, software development, and artificial intelligence. I use SQL, Excel, Power BI, and Python to organize and analyze data, uncover patterns, and share clear, useful insights. My experience as a Data Analyst Officer has strengthened my evidence-led approach to complex questions.
+            </p>
+            <p className="identity-intro">
+              I’m also the founder of KenyalangKu, where I use narrative design to create Malaysian game worlds that bring local culture to players. As an ambassador for KrackedDevs, I support a builder-led community, school, and product lab that works with companies and government to turn talent into shipped work.
+            </p>
 
             <div className="identity-links">
               <a href="mailto:syahmirsupardi@gmail.com">EMAIL <FiArrowUpRight aria-hidden="true" /></a>
