@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { FiArrowUpRight, FiDownload, FiGithub } from 'react-icons/fi'
+import DepthCarousel, { type DepthCarouselItem } from './DepthCarousel'
 
 type Project = {
   number: string
@@ -8,11 +10,13 @@ type Project = {
   image: string
   alt: string
   tools: string[]
-  href: string
-  action: 'Download project' | 'View on GitHub'
+  href?: string
+  action?: 'Download project' | 'View on GitHub'
 }
 
-const projects: Project[] = [
+type ProjectCategory = 'data' | 'games'
+
+const dataProjects: Project[] = [
   {
     number: '01',
     title: 'COVID-19 SQL analysis',
@@ -59,7 +63,78 @@ const projects: Project[] = [
   },
 ]
 
+const gameProjects: Project[] = [
+  {
+    number: '01',
+    title: 'PUSAKA',
+    category: 'Game project',
+    description: 'A Malaysian game project focused on narrative design and worldbuilding.',
+    image: '/projects/pusaka-title-card.svg',
+    alt: 'Typographic title card for the PUSAKA game project',
+    tools: ['Worldbuilding', 'Narrative design'],
+  },
+]
+
+const categoryOptions: Array<{ id: ProjectCategory; label: string; projects: Project[] }> = [
+  { id: 'data', label: 'Data Analyst', projects: dataProjects },
+  { id: 'games', label: 'Game Projects', projects: gameProjects },
+]
+
+const ProjectCard = ({ project, isActive }: { project: Project; isActive: boolean }) => {
+  const isDownload = project.action === 'Download project'
+  const isExternal = project.action === 'View on GitHub'
+  const linkProps = {
+    href: project.href,
+    download: isDownload ? true : undefined,
+    target: isExternal ? '_blank' : undefined,
+    rel: isExternal ? 'noreferrer' : undefined,
+    tabIndex: isActive ? 0 : -1,
+  }
+
+  const imageContent = (
+    <>
+      <img src={project.image} alt={project.alt} loading="lazy" decoding="async" draggable={false} />
+      <span className="project-number">{project.number}</span>
+      {project.href && <span className="project-image-arrow" aria-hidden="true"><FiArrowUpRight /></span>}
+    </>
+  )
+
+  return (
+    <article
+      className="project-card"
+      data-variant={Number(project.number) % 2 === 0 ? 'yellow' : 'blue'}
+      aria-label={`${project.category}: ${project.title}`}
+    >
+      <span className="paper-tape project-tape" aria-hidden="true" />
+      {project.href
+        ? <a className="project-image-link" {...linkProps} aria-label={`${project.action}: ${project.title}`}>{imageContent}</a>
+        : <div className="project-image-link project-image-link--static">{imageContent}</div>}
+
+      <div className="project-content">
+        <div className="project-meta">
+          <span>{project.category}</span>
+          <span>{project.tools.join(' · ')}</span>
+        </div>
+        <h3>{project.title}</h3>
+        <p>{project.description}</p>
+        {project.href && project.action && (
+          <a className="project-action" {...linkProps}>
+            {isDownload ? <FiDownload aria-hidden="true" /> : <FiGithub aria-hidden="true" />}
+            {project.action}
+            <FiArrowUpRight aria-hidden="true" />
+          </a>
+        )}
+      </div>
+    </article>
+  )
+}
+
 const Portfolio = () => {
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory>('data')
+  const category = categoryOptions.find((option) => option.id === activeCategory) ?? categoryOptions[0]
+  const activeProjects = category.projects
+  const items: DepthCarouselItem[] = activeProjects.map(({ image, alt }) => ({ image, alt }))
+
   return (
     <section id="portfolio" className="section-wrap work-section" aria-labelledby="work-title">
       <div className="section-label-row">
@@ -69,46 +144,58 @@ const Portfolio = () => {
 
       <div className="work-heading">
         <h2 id="work-title">Work <span>samples</span></h2>
-        <p>Analysis, reports, and dashboards built to make information easier to use.</p>
+        <p>
+          {activeCategory === 'data'
+            ? 'Analysis, reports, and dashboards built to make information easier to use.'
+            : 'Game projects shaped through narrative design and Malaysian worldbuilding.'}
+        </p>
       </div>
 
-      <div className="project-grid">
-        {projects.map((project) => (
-          <article className="project-card" key={project.number}>
-            <span className="paper-tape project-tape" aria-hidden="true" />
-            <a
-              className="project-image-link"
-              href={project.href}
-              download={project.action === 'Download project' ? true : undefined}
-              target={project.action === 'View on GitHub' ? '_blank' : undefined}
-              rel={project.action === 'View on GitHub' ? 'noreferrer' : undefined}
-              aria-label={`${project.action}: ${project.title}`}
+      <div className="project-category-bar">
+        <div className="project-category-switch" role="group" aria-label="Work sample categories">
+          {categoryOptions.map((option) => (
+            <button
+              type="button"
+              key={option.id}
+              className={`project-category-button${activeCategory === option.id ? ' is-active' : ''}`}
+              aria-pressed={activeCategory === option.id}
+              onClick={() => setActiveCategory(option.id)}
             >
-              <img src={project.image} alt={project.alt} loading="lazy" decoding="async" />
-              <span className="project-number">{project.number}</span>
-              <span className="project-image-arrow" aria-hidden="true"><FiArrowUpRight /></span>
-            </a>
-            <div className="project-content">
-              <div className="project-meta">
-                <span>{project.category}</span>
-                <span>{project.tools.join(' · ')}</span>
-              </div>
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <a
-                className="project-action"
-                href={project.href}
-                download={project.action === 'Download project' ? true : undefined}
-                target={project.action === 'View on GitHub' ? '_blank' : undefined}
-                rel={project.action === 'View on GitHub' ? 'noreferrer' : undefined}
-              >
-                {project.action === 'Download project' ? <FiDownload aria-hidden="true" /> : <FiGithub aria-hidden="true" />}
-                {project.action}
-                <FiArrowUpRight aria-hidden="true" />
-              </a>
-            </div>
-          </article>
-        ))}
+              <span>{option.label}</span>
+              <span className="project-category-count" aria-label={`${option.projects.length} projects`}>
+                {String(option.projects.length).padStart(2, '0')}
+              </span>
+            </button>
+          ))}
+        </div>
+        <p className="project-category-status" aria-live="polite">
+          <span>NOW SHOWING</span> {category.label.toUpperCase()}
+        </p>
+      </div>
+
+      <div className="project-carousel-shell">
+        <DepthCarousel
+          key={activeCategory}
+          items={items}
+          renderItem={(_item, index, isActive) => (
+            <ProjectCard project={activeProjects[index]} isActive={isActive} />
+          )}
+          cardWidth={340}
+          cardHeight={438}
+          radius={0}
+          depth={205}
+          spread={66}
+          tilt={15}
+          tiltDirection="right"
+          perspective={1300}
+          visibleCards={3}
+          falloff={0.22}
+          blur={2}
+          showControls
+          showIndicators
+          label={`${category.label} work samples`}
+          className="project-depth-carousel"
+        />
       </div>
     </section>
   )
