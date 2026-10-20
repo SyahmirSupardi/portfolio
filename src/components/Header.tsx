@@ -4,9 +4,9 @@ const Header = () => {
   return (
     <section id="about" className="hero section-wrap" aria-labelledby="hero-title">
       <div className="poster-heading">
-        <p className="poster-kicker"><span>PERSONAL FILE</span><span>NO. 01 — DATA &amp; INSIGHT</span></p>
-        <h1 id="hero-title">DATA <span>PORTFOLIO</span></h1>
-        <p className="poster-subtitle">ANALYSIS · REPORTING · BUSINESS INTELLIGENCE</p>
+        <p className="poster-kicker"><span>PERSONAL FILE</span><span>NO. 01 — DATA &amp; GAMES</span></p>
+        <h1 id="hero-title">DATA &amp; GAME <span>PORTFOLIO</span></h1>
+        <p className="poster-subtitle">ANALYSIS · REPORTING · GAME DEVELOPMENT</p>
       </div>
 
       <div className="hero-board">
@@ -21,10 +21,10 @@ const Header = () => {
           <span className="paper-tape tape-top" aria-hidden="true" />
           <figure className="portrait-frame">
             <img
-              src="/projects/syahmir-portrait.webp"
+              src="/projects/syahmir-portrait-2026.jpeg"
               alt="Syahmir Supardi"
-              width="1052"
-              height="1500"
+              width="810"
+              height="1080"
               fetchPriority="high"
             />
             <figcaption>PORTRAIT / 01</figcaption>

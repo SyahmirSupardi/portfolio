@@ -6,7 +6,7 @@ const Nav = () => {
       <nav className="site-nav" aria-label="Main navigation">
         <a className="nav-brand" href="#about">
           <span className="nav-monogram" aria-hidden="true">SS</span>
-          <span>Syahmir Supardi <small>DATA PORTFOLIO</small></span>
+          <span>Syahmir Supardi <small>DATA + GAME PORTFOLIO</small></span>
         </a>
 
         <div className="nav-links">

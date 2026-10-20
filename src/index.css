@@ -241,10 +241,12 @@ a:focus-visible {
   font-weight: 950;
   letter-spacing: .015em;
   line-height: .91;
+  white-space: nowrap;
   text-shadow: 2px 2px 0 rgba(240, 202, 40, .2), -1px -1px 0 rgba(255, 255, 255, .15);
 }
 
 .poster-heading h1 span {
+  display: block;
   color: var(--yellow);
 }
 
@@ -363,7 +365,9 @@ a:focus-visible {
   position: absolute;
   inset: 0;
   object-fit: cover;
-  object-position: center 24%;
+  object-position: center 68%;
+  transform: scale(1.28);
+  transform-origin: center bottom;
   filter: grayscale(.72) contrast(1.15) sepia(.12);
 }
 
@@ -1372,7 +1376,7 @@ a:focus-visible {
   }
 
   .poster-heading h1 {
-    font-size: clamp(42px, 11.6vw, 68px);
+    font-size: clamp(36px, 9.4vw, 56px);
   }
 
   .poster-subtitle {
@@ -1453,7 +1457,7 @@ a:focus-visible {
   }
 
   .portrait-frame img {
-    object-position: center 27%;
+    object-position: center 68%;
   }
 
   .identity-details {

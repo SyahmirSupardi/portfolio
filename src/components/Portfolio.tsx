@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FiArrowUpRight, FiDownload, FiGithub } from 'react-icons/fi'
+import { FiArrowUpRight, FiDownload, FiGithub, FiPlay } from 'react-icons/fi'
 import DepthCarousel, { type DepthCarouselItem } from './DepthCarousel'
 
 type Project = {
@@ -9,9 +9,9 @@ type Project = {
   description: string
   image: string
   alt: string
-  tools: string[]
+  tags: string[]
   href?: string
-  action?: 'Download project' | 'View on GitHub'
+  action?: 'Download project' | 'View on GitHub' | 'Play on GamePix'
 }
 
 type ProjectCategory = 'data' | 'games'
@@ -24,7 +24,7 @@ const dataProjects: Project[] = [
     description: 'A SQL exploration of COVID-19 data, with the queries available to download.',
     image: '/projects/covid-19.jpg',
     alt: 'COVID-19 project cover image',
-    tools: ['SQL', 'PostgreSQL'],
+    tags: ['SQL', 'PostgreSQL'],
     href: '/downloads/Covid SQL Project.sql',
     action: 'Download project',
   },
@@ -35,7 +35,7 @@ const dataProjects: Project[] = [
     description: 'An Excel reporting project with an automated bike sales dashboard.',
     image: '/projects/2022-09-29-image-2.png',
     alt: 'Excel project cover image',
-    tools: ['Excel', 'VBA'],
+    tags: ['Excel', 'VBA'],
     href: '/downloads/Excel Full Project.xlsx',
     action: 'Download project',
   },
@@ -46,7 +46,7 @@ const dataProjects: Project[] = [
     description: 'An interactive business analytics dashboard built in Power BI.',
     image: '/projects/461.png',
     alt: 'Power BI dashboard project cover image',
-    tools: ['Power BI', 'DAX'],
+    tags: ['Power BI', 'DAX'],
     href: '/downloads/Power BI Portfolio.pbix',
     action: 'Download project',
   },
@@ -57,7 +57,7 @@ const dataProjects: Project[] = [
     description: 'A collection of project work and experiments hosted on GitHub.',
     image: '/projects/1703525023946.jpg',
     alt: 'GitHub project cover image',
-    tools: ['Python', 'Pandas'],
+    tags: ['Python', 'Pandas'],
     href: 'https://github.com/SyahmirSupardi/Syhm_Portfolio_Project',
     action: 'View on GitHub',
   },
@@ -66,12 +66,23 @@ const dataProjects: Project[] = [
 const gameProjects: Project[] = [
   {
     number: '01',
+    title: 'Genesis Roulette',
+    category: 'Game project',
+    description: 'Infuse your living egg with Fire, Water, or Nature, then outplay your rival in a sci-fi duel where strategy and chance decide who survives.',
+    image: '/projects/genesis-roulette-cover.png',
+    alt: 'Genesis Roulette arena with a luminous central egg and Fire, Water, and Nature eggs.',
+    tags: ['Fire', 'Water', 'Nature'],
+    href: 'https://www.gamepix.com/jams/xsolla-game-jam-kl/play/434L3E',
+    action: 'Play on GamePix',
+  },
+  {
+    number: '02',
     title: 'PUSAKA',
     category: 'Game project',
     description: 'A Malaysian game project focused on narrative design and worldbuilding.',
     image: '/projects/pusaka-title-card.svg',
     alt: 'Typographic title card for the PUSAKA game project',
-    tools: ['Worldbuilding', 'Narrative design'],
+    tags: ['Worldbuilding', 'Narrative design'],
   },
 ]
 
@@ -82,7 +93,8 @@ const categoryOptions: Array<{ id: ProjectCategory; label: string; projects: Pro
 
 const ProjectCard = ({ project, isActive }: { project: Project; isActive: boolean }) => {
   const isDownload = project.action === 'Download project'
-  const isExternal = project.action === 'View on GitHub'
+  const isGame = project.action === 'Play on GamePix'
+  const isExternal = project.action === 'View on GitHub' || isGame
   const linkProps = {
     href: project.href,
     download: isDownload ? true : undefined,
@@ -113,13 +125,13 @@ const ProjectCard = ({ project, isActive }: { project: Project; isActive: boolea
       <div className="project-content">
         <div className="project-meta">
           <span>{project.category}</span>
-          <span>{project.tools.join(' · ')}</span>
+          <span>{project.tags.join(' · ')}</span>
         </div>
         <h3>{project.title}</h3>
         <p>{project.description}</p>
         {project.href && project.action && (
           <a className="project-action" {...linkProps}>
-            {isDownload ? <FiDownload aria-hidden="true" /> : <FiGithub aria-hidden="true" />}
+            {isDownload ? <FiDownload aria-hidden="true" /> : isGame ? <FiPlay aria-hidden="true" /> : <FiGithub aria-hidden="true" />}
             {project.action}
             <FiArrowUpRight aria-hidden="true" />
           </a>
@@ -147,7 +159,7 @@ const Portfolio = () => {
         <p>
           {activeCategory === 'data'
             ? 'Analysis, reports, and dashboards built to make information easier to use.'
-            : 'Game projects shaped through narrative design and Malaysian worldbuilding.'}
+            : 'From elemental sci-fi duels to Malaysian game worlds, each project starts with a distinct idea.'}
         </p>
       </div>
 

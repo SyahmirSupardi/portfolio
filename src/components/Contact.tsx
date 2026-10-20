@@ -1,4 +1,4 @@
-import { FiArrowUpRight, FiMail, FiMessageCircle, FiPhone } from 'react-icons/fi'
+import { FiArrowUpRight, FiMail, FiMessageCircle } from 'react-icons/fi'
 
 const Contact = () => {
   return (
@@ -18,14 +18,9 @@ const Contact = () => {
             <span><small>Email</small><strong>syahmirsupardi@gmail.com</strong></span>
             <FiArrowUpRight className="contact-arrow" aria-hidden="true" />
           </a>
-          <a className="contact-link" href="https://wa.me/60197627420" target="_blank" rel="noreferrer">
+          <a className="contact-link" href="https://wa.me/syhm_" target="_blank" rel="noreferrer">
             <span className="contact-icon"><FiMessageCircle aria-hidden="true" /></span>
             <span><small>WhatsApp</small><strong>Send me a message</strong></span>
-            <FiArrowUpRight className="contact-arrow" aria-hidden="true" />
-          </a>
-          <a className="contact-link" href="tel:+60197627420">
-            <span className="contact-icon"><FiPhone aria-hidden="true" /></span>
-            <span><small>Phone</small><strong>+60 19-762 7420</strong></span>
             <FiArrowUpRight className="contact-arrow" aria-hidden="true" />
           </a>
         </div>
